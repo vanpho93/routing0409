@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ContactService } from './contact.service';
 
 @Component({
   selector: 'app-home',
@@ -6,17 +7,18 @@ import { Component } from '@angular/core';
     <div>
       <h3>Contacts</h3>
       <div>
-        <a *ngFor="let contact of contacts" routerLink="about/{{ contact.name }}">
+        <a *ngFor="let contact of contacts" routerLink="about/{{ contact.id }}">
           {{ contact.name }}
         </a>
       </div>
     </div>
   `,
+  providers: [ContactService]
 })
 export class HomeComponent {
-  contacts = [
-    { name: 'Teo', phoneNumber: '098173827183' },
-    { name: 'Ti', phoneNumber: '098122312343' },
-    { name: 'Tun', phoneNumber: '098173381843' },
-  ];
+  contacts = [];
+  constructor(private contactService: ContactService) {
+    this.contactService.getAllContacts()
+    .then(contacts => this.contacts = contacts);
+  }
 }

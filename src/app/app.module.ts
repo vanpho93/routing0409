@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -9,7 +10,7 @@ import { NotFoundComponent } from './not-found.component';
 
 const routerConfig: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'about/:name', component: AboutComponent },
+  { path: 'about/:id', component: AboutComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -22,6 +23,7 @@ const routerConfig: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     RouterModule.forRoot(routerConfig)
   ],
   providers: [],
