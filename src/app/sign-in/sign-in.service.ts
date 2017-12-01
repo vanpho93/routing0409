@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Router } from '@angular/router';
 
 @Injectable()
 
 export class SignInService {
-    constructor(private http: Http) {}
+    constructor(private http: Http, private router: Router) {}
 
     sendSignInRequest(value) {
         const url = 'http://localhost:3000/signin';
@@ -26,6 +27,9 @@ export class SignInService {
         return this.http.post(url, body, { headers })
         .toPromise()
         .then(res => res.json())
-        .catch(() => localStorage.removeItem('token'));
+        .catch(() => {
+            localStorage.removeItem('token');
+            this.router.navigate(['']);
+        });
     }
 }
