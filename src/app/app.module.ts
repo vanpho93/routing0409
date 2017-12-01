@@ -5,12 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
-import { AboutComponent } from './about.component';
 import { NotFoundComponent } from './not-found.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { PrivateComponent } from './private/private.component';
 
 const routerConfig: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'about/:id', component: AboutComponent },
+  { path: 'signin', component: SignInComponent },
+  { path: 'private', component: PrivateComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -18,8 +20,9 @@ const routerConfig: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SignInComponent,
+    PrivateComponent
   ],
   imports: [
     BrowserModule,
