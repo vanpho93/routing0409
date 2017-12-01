@@ -21,13 +21,12 @@ app.post('/signin', jsonParser, (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
     if (!user) return res.status(404).send({ success: false, message: 'Invalid username or password' });
-    delete user.password;
     createToken({ username, password })
     .then(token => res.send({
         success: true,
         token,
-        user
-    }))
+        user: { username: user.username, name: user.name }
+    }));
 });
 
 app.post('/verify', jsonParser, (req, res) => {

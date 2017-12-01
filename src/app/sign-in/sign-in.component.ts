@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { SignInService } from './sign-in.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-reactive-form',
@@ -12,7 +13,8 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private signInService: SignInService
+    private signInService: SignInService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -34,6 +36,7 @@ export class SignInComponent implements OnInit {
         return alert(res.message);
       }
       localStorage.setItem('token', res.token);
+      this.router.navigate(['/private']);
     });
   }
 }

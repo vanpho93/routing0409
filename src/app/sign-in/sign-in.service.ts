@@ -16,4 +16,16 @@ export class SignInService {
         .then(res => res.json())
         .catch(res => res.json());
     }
+
+    checkToken() {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        const url = 'http://localhost:3000/verify';
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const body = JSON.stringify({ token });
+        return this.http.post(url, body, { headers })
+        .toPromise()
+        .then(res => res.json())
+        .catch(() => localStorage.removeItem('token'));
+    }
 }
