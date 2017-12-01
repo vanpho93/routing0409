@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="formSignIn">
-  <input type="text" placeholder="Email" formControlName="email"/>
+  <input type="text" placeholder="Email" formControlName="username"/>
   <br><br>
   <p *ngIf="txtEmail.touched && txtEmail.errors?.required">Ban phai nhap email</p>
   <input type="password" placeholder="Password" formControlName="password">
