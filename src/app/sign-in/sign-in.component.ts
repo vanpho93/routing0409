@@ -17,7 +17,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.formSignIn = this.fb.group({
-      username: this.fb.control('abcd', Validators.required),
+      username: ['abcd', Validators.required],
       password: ''
     });
   }
@@ -29,7 +29,11 @@ export class SignInComponent implements OnInit {
   onSubmit() {
     const { value } = this.formSignIn;
     this.signInService.sendSignInRequest(value)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(res => {
+      if (!res.success) {
+        return alert(res.message);
+      }
+      localStorage.setItem('token', res.token);
+    });
   }
 }

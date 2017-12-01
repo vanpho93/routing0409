@@ -13,6 +13,7 @@ export class SignInService {
         const body = JSON.stringify(value);
         return this.http.post(url, body, { headers })
         .toPromise()
-        .then(res => res.json());
+        .then(res => res.json())
+        .catch(res => res.json());
     }
 }
