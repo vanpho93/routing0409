@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-my-reactive-form',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  formSignIn: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.formSignIn = this.fb.group({
+      email: this.fb.control('abcd', Validators.required),
+      password: ''
+    });
   }
 
+  get txtEmail() {
+    return this.formSignIn.controls.email;
+  }
+
+  onSubmit() {
+    console.log(this.formSignIn.value);
+  }
 }

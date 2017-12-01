@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
@@ -28,6 +29,8 @@ const routerConfig: Routes = [
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routerConfig)
   ],
   providers: [AuthGuard],
