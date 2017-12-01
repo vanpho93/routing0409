@@ -1,11 +1,14 @@
 const express = require('express');
 const uid = require('uid');
+const { createToken, verifyToken } = require('./jwt');
+const jsonParser = require('body-parser').json();
+
 const app = express();
 
-const contacts = [
-    { name: 'Teo', phoneNumber: '098173827183', id: uid() },
-    { name: 'Ti', phoneNumber: '098122312343', id: uid() },
-    { name: 'Tun', phoneNumber: '098173381843', id: uid() },
+const users = [
+    { username: 'teo', name: 'Teo Nguyen', password: '123' },
+    { username: 'ti', name: 'Ti Nguyen', password: '123' },
+    { username: 'tun', name: 'Tun Nguyen', password: '123' },
 ];
 
 app.use((req, res, next) => {
@@ -14,14 +17,24 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/contact', (req, res) => {
-    res.send(contacts);
+app.post('/signin', jsonParser, (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username && u.password === password);
+    if (!user) return res.status(404).send({ success: false, message: 'Invalid username or password' });
+    delete user.password;
+    createToken({ username, password })
+    .then(token => res.send({
+        success: true,
+        token,
+        user
+    }))
 });
 
-app.get('/contact/:id', (req, res) => {
-    const { id } = req.params;
-    const contact = contacts.find(c => c.id === id);
-    res.send(contact);
+app.post('/verify', jsonParser, (req, res) => {
+    const { token } = req.body;
+    verifyToken(token)
+    .then(() => res.send({ success: true }))
+    .catch(() => res.status(404).send({ success: false }))
 });
 
 app.listen(3000, () => console.log('Server started!'));
