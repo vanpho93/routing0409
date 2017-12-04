@@ -5,14 +5,22 @@
 >
     Home
 </a>
-<a
+<a  
+    *ngIf="user"
     routerLink="/private"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }"
 >
     Private
 </a>
+<button  
+    *ngIf="user"
+    (click)="signOut();"
+>
+    Sign out
+</button>
 <a
+    *ngIf="!user"
     routerLink="/signin"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }"
