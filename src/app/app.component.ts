@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   constructor(private signInService: SignInService) {}
 
   ngOnInit(): void {
-    this.signInService.checkToken();
+    this.signInService.checkToken().then();
   }
 }

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
+import { PreventResignInGuard } from './prevent-resign-in.guard';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { NotFoundComponent } from './not-found.component';
@@ -13,7 +14,7 @@ import { PrivateComponent } from './private/private.component';
 
 const routerConfig: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'signin', component: SignInComponent },
+  { path: 'signin', component: SignInComponent, canActivate: [PreventResignInGuard] },
   { path: 'private', component: PrivateComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
@@ -33,7 +34,7 @@ const routerConfig: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routerConfig)
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, PreventResignInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
